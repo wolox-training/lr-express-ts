@@ -55,7 +55,7 @@ module.exports = {
     "@typescript-eslint/no-array-constructor": "error",
     "@typescript-eslint/no-empty-function": "error",
     "@typescript-eslint/no-empty-interface": ["error", { "allowSingleExtends": false }],
-    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-extra-parens": "error",
     "@typescript-eslint/no-extraneous-class": "error",
     "@typescript-eslint/no-misused-new": "error",
