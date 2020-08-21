@@ -63,4 +63,6 @@ const config: IConfig = {
 
 const customConfig: IConfig = deepMerge(config, environmentConfig);
 
+export const BASE_URL_HEARTH_STONE = 'https://omgvamp-hearthstone-v1.p.rapidapi.com';
+
 export default customConfig;
