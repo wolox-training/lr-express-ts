@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { BASE_URL_HEARTH_STONE } from '../../config';
-import { Cards } from './Interfaces/cardsInterface';
 
 const urlBase = axios.create({
   baseURL: BASE_URL_HEARTH_STONE,
@@ -13,24 +12,13 @@ const urlBase = axios.create({
   }
 });
 
-export interface BasicInfo {
-  patch: string;
-  classes: [string];
-  sets: [string];
-  types: [string];
-  factions: [string];
-  qualities: [string];
-  races: [string];
-  locales: [string];
-}
-
-const getBasicInfo = async (): Promise<BasicInfo> => {
-  const response = await urlBase.get<BasicInfo>('/info');
+const getBasicInfo = async (): Promise<any> => {
+  const response = await urlBase.get('/info');
   return response.data;
 };
 
-const getAllCards = async (): Promise<Cards> => {
-  const response = await urlBase.get<Cards>('/cards');
+const getAllCards = async (): Promise<any> => {
+  const response = await urlBase.get('/cards');
   return response.data;
 };
 
