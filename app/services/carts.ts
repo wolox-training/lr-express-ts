@@ -12,12 +12,12 @@ const urlBase = axios.create({
   }
 });
 
-const getBasicInfo = async (): Promise<any> => {
+export const getBasicInfo = async (): Promise<any> => {
   const response = await urlBase.get('/info');
   return response.data;
 };
 
-const getAllCards = async (): Promise<any> => {
+export const getAllCards = async (): Promise<any> => {
   const response = await urlBase.get('/cards');
   return response.data;
 };
