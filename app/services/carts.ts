@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { externalApiError } from '../errors';
 import { BASE_URL_HEARTH_STONE } from '../../config';
 
 const urlBase = axios.create({
@@ -13,16 +14,19 @@ const urlBase = axios.create({
 });
 
 export const getBasicInfo = async (): Promise<any> => {
-  const response = await urlBase.get('/info');
-  return response.data;
+  try {
+    const response = await urlBase.get('/info');
+    return response.data;
+  } catch (error) {
+    throw externalApiError('Error getting data');
+  }
 };
 
 export const getAllCards = async (): Promise<any> => {
-  const response = await urlBase.get('/cards');
-  return response.data;
-};
-
-export default {
-  getBasicInfo,
-  getAllCards
+  try {
+    const response = await urlBase.get('/cards');
+    return response.data;
+  } catch (error) {
+    throw externalApiError('Error getting data');
+  }
 };

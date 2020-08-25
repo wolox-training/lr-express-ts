@@ -17,6 +17,7 @@ export const createInternalError = (internalCode: string, statusCode: number) =>
   message: string,
   err?: Error
 ): InternalError => {
+  console.log('test1234');
   err && logger.error(inspect(err));
   return { message, internalCode, statusCode };
 };
