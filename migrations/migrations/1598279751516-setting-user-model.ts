@@ -7,7 +7,7 @@ export class SettingUserModel1598279751516 implements MigrationInterface {
     await queryRunner.addColumn(
       'User',
       new TableColumn({
-        name: 'lastname',
+        name: 'lastName',
         type: 'varchar',
         isNullable: false
       })
@@ -35,7 +35,7 @@ export class SettingUserModel1598279751516 implements MigrationInterface {
 
   async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.renameColumn('User', 'name', 'username');
-    await queryRunner.dropColumn('User', 'latname');
+    await queryRunner.dropColumn('User', 'latsName');
     await queryRunner.dropColumn('User', 'email');
     await queryRunner.dropColumn('User', 'password');
   }
