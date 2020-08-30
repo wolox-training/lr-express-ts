@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';
 
-export class SettingusersModel1598279751516 implements MigrationInterface {
+export class SettingUserModel1598279751516 implements MigrationInterface {
   async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.renameColumn('users', 'usersname', 'name');
+    await queryRunner.renameColumn('User', 'username', 'name');
 
     await queryRunner.addColumn(
-      'users',
+      'User',
       new TableColumn({
         name: 'last_name',
         type: 'varchar',
@@ -14,7 +14,7 @@ export class SettingusersModel1598279751516 implements MigrationInterface {
     );
 
     await queryRunner.addColumn(
-      'users',
+      'User',
       new TableColumn({
         name: 'email',
         type: 'varchar',
@@ -24,19 +24,22 @@ export class SettingusersModel1598279751516 implements MigrationInterface {
     );
 
     await queryRunner.addColumn(
-      'users',
+      'User',
       new TableColumn({
         name: 'password',
         type: 'varchar',
         isNullable: false
       })
     );
+
+    await queryRunner.renameTable('User', 'Users');
   }
 
   async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.renameColumn('users', 'name', 'usersname');
-    await queryRunner.dropColumn('users', 'last_name');
-    await queryRunner.dropColumn('users', 'email');
-    await queryRunner.dropColumn('users', 'password');
+    await queryRunner.renameColumn('User', 'name', 'Username');
+    await queryRunner.dropColumn('User', 'last_name');
+    await queryRunner.dropColumn('User', 'email');
+    await queryRunner.dropColumn('User', 'password');
+    await queryRunner.renameTable('Users', 'User');
   }
 }
