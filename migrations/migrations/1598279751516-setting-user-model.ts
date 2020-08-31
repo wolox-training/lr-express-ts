@@ -32,7 +32,7 @@ export class SettingUserModel1598279751516 implements MigrationInterface {
       })
     );
 
-    await queryRunner.renameTable('User', 'Users');
+    await queryRunner.renameTable('User', 'users');
   }
 
   async down(queryRunner: QueryRunner): Promise<void> {
@@ -40,6 +40,6 @@ export class SettingUserModel1598279751516 implements MigrationInterface {
     await queryRunner.dropColumn('User', 'last_name');
     await queryRunner.dropColumn('User', 'email');
     await queryRunner.dropColumn('User', 'password');
-    await queryRunner.renameTable('Users', 'User');
+    await queryRunner.renameTable('Users', 'users');
   }
 }
