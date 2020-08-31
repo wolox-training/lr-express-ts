@@ -1,53 +1,37 @@
 import request from 'supertest';
-import userRepository from '../app/services/users';
+import nock from 'nock';
+
 import app from '../app';
 
-describe('users', () => {
-  beforeEach(() => userRepository.createMany([{ username: 'u1' }, { username: 'u2' }]));
-  describe('/users GET', () => {
-    it('should return all users', (done: jest.DoneCallback) => {
+import { BASE_URL } from '../app/services/todos';
+
+const TODO_MOCK = {
+  userId: 1,
+  id: 1,
+  title: 'delectus aut autem',
+  completed: false
+};
+
+describe('todos', () => {
+  describe('/todos GET', () => {
+    nock(BASE_URL).get('/todos', [TODO_MOCK]);
+    test('should return all todos', (done: jest.DoneCallback) => {
       request(app)
-        .get('/users')
-        .expect(200)
+        .get('/todos')
         .then((res: request.Response) => {
-          expect(res.body.length).toBe(2);
+          expect(res.status).toBe(200);
+          expect(res.body).toBeInstanceOf(Array);
+          expect(res.body[0]).toBeInstanceOf(Object);
+          expect(res.body[0]).toHaveProperty('id');
+          expect(res.body[0]).toHaveProperty('userId');
+          expect(res.body[0]).toHaveProperty('title');
+          expect(res.body[0]).toHaveProperty('completed');
+          expect(res.body[0].id).toBe(TODO_MOCK.id);
+          expect(res.body[0].userId).toBe(TODO_MOCK.userId);
+          expect(res.body[0].title).toBe(TODO_MOCK.title);
+          expect(res.body[0].completed).toBe(TODO_MOCK.completed);
           done();
         });
-    });
-  });
-  describe('/users POST', () => {
-    it('should create an user', (done: jest.DoneCallback) => {
-      request(app)
-        .post('/users')
-        .send({ username: 'u3' })
-        .expect(201)
-        .then(async () => {
-          const user = await userRepository.findUser({ username: 'u3' });
-          expect(user).not.toBeNull();
-          done();
-        });
-    });
-    describe('/users/:id GET', () => {
-      it('should return user with id 1', (done: jest.DoneCallback) => {
-        request(app)
-          .get('/users/1')
-          .expect(200)
-          .then((res: request.Response) => {
-            expect(res.body).toHaveProperty('username');
-            expect(res.body).toHaveProperty('id');
-            done();
-          });
-      });
-      it('should return error for user with id 5', (done: jest.DoneCallback) => {
-        request(app)
-          .get('/users/5')
-          .expect(404)
-          .then((res: request.Response) => {
-            expect(res.body).toHaveProperty('message');
-            expect(res.body).toHaveProperty('internal_code');
-            done();
-          });
-      });
     });
   });
 });
